@@ -48,7 +48,7 @@ public class Contact {
     /**
      * Name {first: , last: }
      */
-    class Name {
+    public class Name {
         @SerializedName("first")
         @Expose
         private String first;
@@ -73,7 +73,7 @@ public class Contact {
     /**
      * Location {street: , city: , state: , postcode: }
      */
-    class Location {
+    public class Location {
         @SerializedName("street")
         @Expose
         private String street;
