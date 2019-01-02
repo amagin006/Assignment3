@@ -3,7 +3,7 @@
     <string name="add">ADD NEW</string>
     <string name="AddActivity">AddActivity</string>
     <string name="Add_button">OK</string>
-    <string name="enter_tel_number">Enter Tel Number</string>
+    <string name="enter_tel_number">Enter Tel Number (10degits)</string>
     <string name="enter_name">Enter Name</string>
 
 </resources>
