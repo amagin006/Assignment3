@@ -1,6 +1,8 @@
 package com.derrick.park.assignment3_contacts.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private AddressAdapter mAdapter;
 
+    public static final int ADD_REQUEST = 1;
     public static final String TAG = MainActivity.class.getSimpleName();
 
 
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Call<ContactList> call = ContactClient.getContacts(40);
+        Call<ContactList> call = ContactClient.getContacts(20);
 
         call.enqueue(new Callback<ContactList>() {
             @Override
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -94,8 +98,38 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.add_new:
-                Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplication(), AddActivity.class);
+                startActivityForResult(intent, ADD_REQUEST);
+
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Contact person = new Contact();
+                String[] replyfullName = data.getStringExtra(AddActivity.ADD_NAME).split(" ");
+
+                Contact.Name firstLastName = person.new Name();
+                firstLastName.setFirst(replyfullName[0]);
+                firstLastName.setLast(replyfullName[1]);
+
+
+                String replyTel = data.getStringExtra(AddActivity.ADD_TEL);
+
+                person.setName(firstLastName);
+                person.setCell(replyTel);
+
+                mContactList.add(person);
+                setActivity(mContactList);
+
+            }
+        }
     }
 }

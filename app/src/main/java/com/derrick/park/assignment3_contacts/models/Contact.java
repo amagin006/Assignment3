@@ -28,6 +28,14 @@ public class Contact {
         return name;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -62,6 +70,14 @@ public class Contact {
 
         public String getLast() {
             return last;
+        }
+
+        public void setFirst(String first) {
+            this.first = first;
+        }
+
+        public void setLast(String last) {
+            this.last = last;
         }
 
         @Override
